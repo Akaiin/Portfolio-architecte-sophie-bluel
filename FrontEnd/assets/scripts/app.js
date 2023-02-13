@@ -1,13 +1,14 @@
 const imagesContainer = document.querySelector('.gallery')
-
+const modalContainer = document.querySelector('.modal')
+const modalContent = document.querySelector('.modal-content')
 
 fetch('http://localhost:5678/api/works')
     .then((response)=> {
     return response.json()
     }) 
-    .then((data)=> {data.forEach(image => {
-        console.log(image)
-        createImage(image.imageUrl, image.title)
+    .then((data)=> {data.forEach(images => {
+        console.log(images)
+        createImage(images.imageUrl, images.title)
     });})
 
 
@@ -22,4 +23,16 @@ fetch('http://localhost:5678/api/works')
         imagesContainer.appendChild(figure)
         figure.appendChild(figureImage)
         figure.appendChild(figureCaption)
+
+        figureImage.addEventListener("click", (event) => {
+            modalContainer.style.display = 'flex'
+        })
     }
+
+    modalContainer.addEventListener("click", (event) => {
+        console.log(modalContainer)
+        console.log(event)
+        if (event.target == modalContainer) {
+        modalContainer.style.display = 'none'}
+    })
+
