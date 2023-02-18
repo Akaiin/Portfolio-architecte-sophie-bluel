@@ -189,6 +189,11 @@ nav li {
 
 li:hover {
 	color: #B1663C;
+	cursor: pointer;
+}
+
+.login--weight {
+	font-weight: 600;
 }
 
 #introduction {
@@ -241,9 +246,14 @@ li:hover {
 	margin: auto;
 }
 
-#contact>* {
+#contact>*,
+.form__link {
 	text-align: center;
 
+}
+
+.form__link {
+	color: #3D3D3D;
 }
 
 #contact h2 {
@@ -282,6 +292,7 @@ input[type="submit"] {
 	width: 180px;
 	text-align: center;
 	border-radius: 60px;
+	cursor: pointer;
 }
 
 footer nav ul {
@@ -308,4 +319,45 @@ footer nav ul {
 	border-radius: 10px;
 	background-color: white;
 	opacity: 1;
+}
+
+.modal__title {
+	font-family: 'Work Sans';
+	font-size: 26px;
+	margin-top: 60px;
+	margin-bottom: 46px;
+	font-weight: 400;
+	color: black;
+}
+
+.modal__images__container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 400px;
+	height: 479px;
+	margin-left: 100px;
+	margin-right: 100px;
+}
+
+.modal__images__cards {
+	width: 70px;
+	height: 100px;
+}
+
+.modal__images-size {
+	width: 100%;
+	height: 100%;
+}
+
+.nav__login {
+	margin-bottom: 100px;
+}
+
+.section__contact {
+	padding-bottom: 200px;
+}
+
+#invalid-email {
+	color: red;
 }
