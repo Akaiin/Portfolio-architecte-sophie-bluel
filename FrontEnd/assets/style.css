@@ -338,9 +338,10 @@ footer nav ul {
 	height: 479px;
 	margin-left: 100px;
 	margin-right: 100px;
+	gap: 20px;
 }
 
-.modal__images__cards {
+.modal__images__card {
 	width: 70px;
 	height: 100px;
 }

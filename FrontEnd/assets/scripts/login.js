@@ -14,21 +14,14 @@ loginForm.addEventListener('click', (event) => {
     fetch('http://localhost:5678/api/users/login', {
         method: 'POST',
         headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            email: 'sophie.bluel@test.tld',
-            password: 'S0phie',
-        }),
+        body: {
+            email: loginEmail.value,
+            password: loginPassword.value,
+        },
+    }).then((response) => {
+        console.log(response)
     })
-        .then((response) => {
-            return response.json()
-        })
-        .then((data) => {
-            console.log(data)
-        })
-        .catch(function (e) {
-            console.log(e)
-        })
 })

@@ -14,7 +14,7 @@ fetch('http://localhost:5678/api/works')
             const figureCaption = document.createElement('figcaption')
             const figureImage = document.createElement('img')
 
-            figureImage.src = image.url
+            figureImage.src = image.imageUrl
             figureImage.alt = image.title
             figureCaption.innerHTML = image.title
             imagesContainer.appendChild(figure)
@@ -23,17 +23,20 @@ fetch('http://localhost:5678/api/works')
 
             figureImage.addEventListener('click', (event) => {
                 modalContainer.style.display = 'flex'
-                data.forEach((image) => {
-                    const modalGallery = document.createElement('div')
-                    const modalPhotos = document.createElement('img')
 
-                    modalGallery.innerHTML = ''
-                    modalPhotos.src = image.url
+                modalImages.innerHTML = ''
+                data.forEach((image) => {
+                    const modalCard = document.createElement('div')
+                    const modalPhotos = document.createElement('img')
+                    const deleteBtn = document.createElement('button')
+
+                    modalCard.classList.add('modal__images__card')
+                    modalPhotos.src = image.imageUrl
                     modalPhotos.alt = image.title
-                    modalImages.appendChild(modalGallery)
-                    modalGallery.appendChild(modalPhotos)
+                    modalImages.appendChild(modalCard)
+                    modalCard.appendChild(modalPhotos)
                     modalPhotos.classList.add('modal__images-size')
-                    modalGallery.classList.add('modal__images__cards')
+                    modalCard.appendChild(deleteBtn)
                 })
             })
         })
