@@ -51,3 +51,12 @@ modalContainer.addEventListener('click', (event) => {
 loginLink.addEventListener('click', (event) => {
     location.href = 'http://127.0.0.1:5500/FrontEnd/login.html'
 })
+
+if (sessionStorage.user) {
+    loginLink.innerHTML = 'log off'
+    loginLink.addEventListener('click', (event) => {
+        event.preventDefault()
+        sessionStorage.removeItem('user')
+        location.href = 'http://127.0.0.1:5500/FrontEnd/index.html'
+    })
+}

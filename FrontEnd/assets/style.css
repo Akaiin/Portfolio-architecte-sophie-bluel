@@ -359,6 +359,6 @@ footer nav ul {
 	padding-bottom: 200px;
 }
 
-#invalid-email {
+#invalid-email, #invalid-password {
 	color: red;
 }
