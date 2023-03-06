@@ -43,6 +43,7 @@ fetch('http://localhost:5678/api/works') /* récupération des travaux */
                         const modalCard = document.createElement('div')
                         const modalPhotos = document.createElement('img')
                         const deleteBtn = document.createElement('button')
+                        const edit = document.createElement('p')
 
                         modalCard.classList.add('modal__images__card')
                         modalPhotos.src = image.imageUrl
@@ -51,9 +52,12 @@ fetch('http://localhost:5678/api/works') /* récupération des travaux */
                         modalCard.appendChild(modalPhotos)
                         modalPhotos.classList.add('modal__images-size')
                         modalCard.appendChild(deleteBtn)
+                        deleteBtn.classList.add('delete__image--btn')
+                        deleteBtn.innerHTML = `<img src="/FrontEnd/assets/icons/bin.svg" alt="delete bin">`
+                        edit.innerHTML = 'éditer'
+                        modalCard.appendChild(edit)
                         /* suppréssion des travaux lors du click sur les boutons */
                         deleteBtn.addEventListener('click', (event) => {
-                            event.preventDefault()
                             const token = JSON.parse(sessionStorage.getItem('user')).token
                             fetch(`http://localhost:5678/api/works/${image.id}`, {
                                 method: 'DELETE',

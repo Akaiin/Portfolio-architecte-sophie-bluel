@@ -15,6 +15,7 @@ loginForm.addEventListener('submit', (event) => {
     } else if (login.password.length < 6) {
         invalidPassword.innerHTML = 'Veuillez entrer un mot de passe contenant au minimum 6 caractères'
     } else {
+        console.log(login)
         fetch('http://localhost:5678/api/users/login', {
             method: 'POST',
             headers: {
@@ -25,7 +26,6 @@ loginForm.addEventListener('submit', (event) => {
             body: JSON.stringify(login),
         })
             .then((response) => {
-                console.log(response)
                 if (response.status === 200) {
                     return response.json()
                 } else if (response.status === 401) {

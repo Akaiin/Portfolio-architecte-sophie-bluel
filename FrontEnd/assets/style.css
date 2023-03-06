@@ -337,31 +337,39 @@ footer nav ul {
 .modal__title {
 	font-family: 'Work Sans';
 	font-size: 26px;
-	margin-top: 60px;
-	margin-bottom: 46px;
+	margin-top: 16px;
 	font-weight: 400;
 	color: black;
 }
 
 .modal__images__container {
 	display: flex;
-	justify-content: center;
 	flex-wrap: wrap;
-	width: 400px;
+	width: 450px;
 	height: 400px;
-	margin-left: 100px;
-	margin-right: 100px;
+	margin: 22px 0px 47px 100px;
 	gap: 20px;
 }
 
 .modal__images__card {
-	width: 70px;
-	height: 100px;
+	width: 71px;
+	height: 104px;
 }
 
 .modal__images-size {
 	width: 100%;
 	height: 100%;
+}
+
+.delete__image--btn {
+	position: absolute;
+	transform: translate(-130%, 25%);
+	width: 19px;
+	height: 19px;
+	background: #000000;
+	border-radius: 2px;
+	border: none;
+	cursor: pointer;
 }
 
 .modal__border {
