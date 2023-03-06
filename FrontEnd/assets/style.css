@@ -314,11 +314,24 @@ footer nav ul {
 }
 
 .modal-content {
+	display: flex;
+	flex-direction: column;
 	width: 630px;
 	height: 731px;
 	border-radius: 10px;
 	background-color: white;
 	opacity: 1;
+}
+
+#close--btn {
+	align-self: flex-end;
+	margin-top: 32px;
+	margin-right: 36px;
+	width: 25px;
+	height: 25px;
+	border: none;
+	background-color: #ffff;
+	cursor: pointer;
 }
 
 .modal__title {
@@ -335,7 +348,7 @@ footer nav ul {
 	justify-content: center;
 	flex-wrap: wrap;
 	width: 400px;
-	height: 479px;
+	height: 400px;
 	margin-left: 100px;
 	margin-right: 100px;
 	gap: 20px;
@@ -349,6 +362,39 @@ footer nav ul {
 .modal__images-size {
 	width: 100%;
 	height: 100%;
+}
+
+.modal__border {
+	align-self: center;
+	border: 1px solid #B3B3B3;
+	width: 420px;
+}
+
+.modal__footer {
+	align-self: center;
+}
+
+
+.modal__add--btn {
+	font-size: 14px;
+	width: 237px;
+	height: 36px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	font-family: 'Syne';
+	color: white;
+	background-color: #1D6154;
+	border-radius: 60px;
+	margin-top: 38px;
+	margin-bottom: 23px;
+	cursor: pointer;
+}
+
+
+.modal__galery--delete {
+	text-align: center;
+	color: #D65353;
+	cursor: pointer;
 }
 
 .nav__login {
