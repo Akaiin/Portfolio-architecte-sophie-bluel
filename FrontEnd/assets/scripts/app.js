@@ -3,7 +3,10 @@ const modalContainer = document.querySelector('.modal')
 const modalContent = document.querySelector('.modal-content')
 const modalImages = document.querySelector('.modal__images__container')
 const loginLink = document.querySelector('.login')
-const closeBtn = document.querySelector('#close--btn')
+const closeBtn = document.querySelector('.close--btn')
+const addModalBtn = document.querySelector('.modal__add--btn')
+const backBtn = document.querySelector('.back--btn')
+const addModal = document.querySelector('.modal-content-hidden')
 
 fetch('http://localhost:5678/api/works') /* récupération des travaux */
     .then((response) => {
@@ -35,9 +38,21 @@ fetch('http://localhost:5678/api/works') /* récupération des travaux */
                 figureImage.addEventListener('click', (event) => {
                     modalImages.innerHTML = ''
                     modalContainer.style.display = 'flex'
+                    modalContent.style.display = 'flex'
+                    addModal.style.display = 'none'
 
-                    closeBtn.addEventListener('click', (event) => {
-                        modalContainer.style.display = 'none'
+                    modalContainer.addEventListener('click', (event) => {
+                        if (event.target.classList.contains('close--btn')) {
+                            modalContainer.style.display = 'none'
+                        }
+                    })
+                    addModalBtn.addEventListener('click', (event) => {
+                        modalContent.style.display = 'none'
+                        addModal.style.display = 'flex'
+                    })
+                    backBtn.addEventListener('click', (event) => {
+                        modalContent.style.display = 'flex'
+                        addModal.style.display = 'none'
                     })
                     data.forEach((image) => {
                         const modalCard = document.createElement('div')
