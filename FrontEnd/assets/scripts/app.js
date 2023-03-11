@@ -6,14 +6,25 @@ const loginLink = document.querySelector('.login')
 const closeBtn = document.querySelector('.close--btn')
 const addModalBtn = document.querySelector('.modal__add--btn')
 const backBtn = document.querySelector('.back--btn')
+const uploadBtn = document.querySelector('#upload--btn')
+const addPhoto = document.querySelector('.modal__hidden--btn')
 const addModal = document.querySelector('.modal-content-hidden')
+const title = document.querySelector('#title')
+const Category = document.querySelector('#category')
+const uploadContent = document.querySelector('.upload__content')
+const user = JSON.parse(sessionStorage.getItem('user'))
 
-fetch('http://localhost:5678/api/works') /* récupération des travaux */
+uploadBtn.addEventListener('change', (event) => {
+    const image = uploadBtn.files[0]
+    uploadContent.innerHTML = `<img src="${URL.createObjectURL(image)}" alt="image" class="uploaded__photo">`
+})
+
+fetch('http://localhost:5678/api/works') // récupération des travaux
     .then((response) => {
         return response.json()
     })
     .then((data) => {
-        /* ajouts des travaux dans la page d'accueil */
+        // ajouts des travaux dans la page d'accueil
         data.forEach((image) => {
             const figure = document.createElement('figure')
             const figureCaption = document.createElement('figcaption')
@@ -25,7 +36,7 @@ fetch('http://localhost:5678/api/works') /* récupération des travaux */
             imagesContainer.appendChild(figure)
             figure.appendChild(figureImage)
             figure.appendChild(figureCaption)
-            /* si l'utilisateur est connecté, création de l'option log out */
+            // si l'utilisateur est connecté, création de l'option log out
             if (sessionStorage.user) {
                 loginLink.innerHTML = 'logout'
                 loginLink.style.fontWeight = 700
@@ -34,7 +45,7 @@ fetch('http://localhost:5678/api/works') /* récupération des travaux */
                     sessionStorage.removeItem('user')
                     location.href = 'http://127.0.0.1:5500/FrontEnd/index.html'
                 })
-                /* création de la modale */
+                // création de la modale
                 figureImage.addEventListener('click', (event) => {
                     modalImages.innerHTML = ''
                     modalContainer.style.display = 'flex'
@@ -71,14 +82,13 @@ fetch('http://localhost:5678/api/works') /* récupération des travaux */
                         deleteBtn.innerHTML = `<img src="/FrontEnd/assets/icons/bin.svg" alt="delete bin">`
                         edit.innerHTML = 'éditer'
                         modalCard.appendChild(edit)
-                        /* suppréssion des travaux lors du click sur les boutons */
+                        // suppréssion des travaux lors du click sur les boutons
                         deleteBtn.addEventListener('click', (event) => {
-                            const token = JSON.parse(sessionStorage.getItem('user')).token
                             fetch(`http://localhost:5678/api/works/${image.id}`, {
                                 method: 'DELETE',
                                 headers: {
                                     Accept: 'application/json',
-                                    Authorization: `Bearer ${token}`,
+                                    Authorization: `Bearer ${user.token}`,
                                 },
                             })
                         })
@@ -88,14 +98,31 @@ fetch('http://localhost:5678/api/works') /* récupération des travaux */
         })
     })
 
-/* fermeture de la modale */
+// fermeture de la modale
 modalContainer.addEventListener('click', (event) => {
     if (event.target == modalContainer) {
         modalContainer.style.display = 'none'
     }
 })
 
-/* redirection vers la page de connexion lors du click sur login */
+// redirection vers la page de connexion lors du click sur login
 loginLink.addEventListener('click', (event) => {
     location.href = 'http://127.0.0.1:5500/FrontEnd/login.html'
+})
+
+addPhoto.addEventListener('click', (event) => {
+    event.preventDefault()
+    let formData = new FormData()
+    formData.append('image', uploadBtn.files[0])
+    formData.append('title', title.value)
+    formData.append('category', Category.value)
+
+    fetch('http://localhost:5678/api/works', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${user.token}`,
+        },
+    })
 })
