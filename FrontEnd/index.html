@@ -51,24 +51,27 @@
             </section>
             <section id="portfolio">
                 <h2>Mes Projets</h2>
+                <div class="filters">
+                    <button class="category-btn">Tous</button>
+                </div>
                 <div class="gallery"></div>
                 <div class="modal">
                     <div class="modal-content">
-                        <button class="close--btn btn"></button>
+                        <button class="close-btn btn"></button>
                         <h2 class="modal__title">Galerie photo</h2>
                         <div class="modal__images__container"></div>
                         <div class="modal__border"></div>
                         <div class="modal__footer">
-                            <button class="modal__add--btn">Ajouter une photo</button>
-                            <p class="modal__galery--delete">Supprimer la galerie</p>
+                            <button class="modal__add-btn">Ajouter une photo</button>
+                            <p class="modal__galery-delete">Supprimer la galerie</p>
                         </div>
                     </div>
-                    <div class="modal-content-hidden">
+                    <div class="modal__content__hidden">
                         <div class="modal__header">
-                            <button class="back--btn btn">
+                            <button class="back-btn btn">
                                 <img src="/FrontEnd/assets/icons/arrow_left.svg" alt="close" />
                             </button>
-                            <button class="close--btn btn"></button>
+                            <button class="close-btn btn"></button>
                         </div>
                         <h2 class="modal__title">Ajout photo</h2>
                         <form action="#" class="upload__container">
@@ -78,19 +81,24 @@
                                     alt="upload"
                                     class="upload__icon"
                                 />
-                                <label for="upload--btn" class="upload__label">+ Ajouter photo</label>
-                                <input type="file" id="upload--btn" class="upload--btn" />
+                                <label for="upload-btn" class="upload__label">+ Ajouter photo</label>
+                                <input
+                                    type="file"
+                                    accept="image/png, image/jpeg"
+                                    id="upload-btn"
+                                    class="upload-btn"
+                                />
                                 <p class="upload__subtext">jpg, png : 4mo max</p>
                             </div>
                             <label for="title" class="modal__label">Titre</label>
-                            <input type="text" name="title" id="title" />
+                            <input type="text" name="title" id="title" required />
                             <label for="category" class="modal__label">Catégorie</label>
                             <select name="categories" id="category" class="select__category">
                                 <option value="1">Objets</option>
                                 <option value="2">Appartements</option>
                                 <option value="3">Hôtels & restaurants</option>
                             </select>
-                            <button class="modal__add--btn modal__hidden--btn">Valider</button>
+                            <button class="modal__add-btn modal__hidden-btn">Valider</button>
                         </form>
                     </div>
                 </div>
@@ -117,6 +125,8 @@
                 </ul>
             </nav>
         </footer>
+        <script src="assets/scripts/services.js"></script>
+        <script src="assets/scripts/modal.js"></script>
         <script src="assets/scripts/app.js"></script>
     </body>
 </html>
