@@ -1,7 +1,7 @@
 const modalContainer = document.querySelector('.modal')
 const modalContent = document.querySelector('.modal-content')
 const loginLink = document.querySelector('.login')
-const closeBtn = document.querySelector('.close-btn')
+const closeBtns = document.querySelectorAll('.close-btn')
 const addModalBtn = document.querySelector('.modal__add-btn')
 const backBtn = document.querySelector('.back-btn')
 const uploadBtn = document.querySelector('#upload-btn')
@@ -10,10 +10,13 @@ const addModal = document.querySelector('.modal__content__hidden')
 const title = document.querySelector('#title')
 const category = document.querySelector('#category')
 const uploadContent = document.querySelector('.upload__content')
+const uploadIcon = document.querySelector('.upload__icon')
+const uploadLabel = document.querySelector('.upload__label')
+const uploadedPhoto = document.querySelector('.uploaded__photo')
 const uploadText = document.querySelector('.upload__subtext')
 
 // fermeture de la modale lors du click sur les bouton en croix
-document.querySelectorAll('.close-btn').forEach((button) => {
+closeBtns.forEach((button) => {
     button.addEventListener('click', (event) => {
         closeModal()
     })
@@ -35,49 +38,104 @@ backBtn.addEventListener('click', (event) => {
 addModalBtn.addEventListener('click', (event) => {
     modalContent.style.display = 'none'
     addModal.style.display = 'flex'
+    uploadBtn.value = null // reset l'input file a l'ouverture de la modale upload
+    uploadedPhoto.style.display = 'none'
+    uploadIcon.style.display = 'block'
+    uploadText.style.display = 'block'
+    uploadLabel.style.display = 'flex'
 })
 
 // previsualisation de l'image séléctionné dans l'input file dans le container
 uploadBtn.addEventListener('change', (event) => {
     const image = uploadBtn.files[0]
     if (image.size <= 4194304) {
-        uploadContent.innerHTML = `<img src="${URL.createObjectURL(
-            image
-        )}" alt="image" class="uploaded__photo">`
+        uploadIcon.style.display = 'none'
+        uploadText.style.display = 'none'
+        uploadLabel.style.display = 'none'
+        uploadedPhoto.style.display = 'block'
+        uploadedPhoto.src = `${URL.createObjectURL(image)}`
     } else {
         uploadText.style.color = 'red'
-        uploadText.innerHTML = `Fichier trop volumineux, veuillez respecter la taille qui est de 4mo maximum`
+        uploadText.innerHTML = `Fichier trop volumineux, veuillez respecter la taille qui est de 4mo maximum et son format jpg ou png`
     }
 })
 
 // création de mon objet formData contenant les propriété de mes images uploadé
 addPhoto.addEventListener('click', (event) => {
     event.preventDefault()
-    let formData = new FormData()
-    formData.append('image', uploadBtn.files[0])
-    formData.append('title', title.value)
-    formData.append('category', category.value)
+    if (uploadBtn.files[0]) {
+        let formData = new FormData()
+        formData.append('image', uploadBtn.files[0])
+        formData.append('title', title.value)
+        formData.append('category', category.value)
 
-    // envoi des informations de mes images vers le serveur
-    fetch('http://localhost:5678/api/works', {
-        method: 'POST',
-        body: formData,
-        headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${user.token}`,
-        },
-    })
-    title.value = ''
-})
-
-// changement de la couleur du bouton si l'input title est utilisé ou non
-title.addEventListener('input', (event) => {
-    if (!title.value) {
-        addPhoto.style.background = '#A7A7A7'
+        // envoi des informations de mes images vers le serveur
+        fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${user.token}`,
+            },
+        })
+            .then((response) => {
+                if (response.status === 201) {
+                    return response.json()
+                }
+            })
+            .then((data) => {
+                if (data.categoryId === '1') {
+                    data.category = {
+                        id: 1,
+                        name: 'Objets',
+                    }
+                } else if (data.categoryId === '2') {
+                    data.category = {
+                        id: 2,
+                        name: 'Appartements',
+                    }
+                } else if (data.categoryId === '3') {
+                    data.category = {
+                        id: 3,
+                        name: 'Hotels & restaurants',
+                    }
+                }
+                gallery.push(data)
+                displayImages(gallery)
+                displayModalImages()
+                console.log(gallery)
+                console.log(data)
+            })
+        addModal.style.display = 'flex'
+        uploadBtn.value = null // reset l'input file a l'ouverture de la modale upload
+        uploadedPhoto.style.display = 'none'
+        uploadIcon.style.display = 'block'
+        uploadText.style.display = 'block'
+        uploadLabel.style.display = 'flex'
     } else {
-        addPhoto.style.background = '#1D6154'
+        const noImage = document.querySelector('.upload__noimage')
+        noImage.style.display = 'block'
+        noImage.style.color = 'red'
+        noImage.textContent = `Veuillez ajouter une image avant de valider`
     }
 })
+
+// changement de la couleur du bouton si l'input est utilisé
+title.addEventListener('input', (event) => {
+    uploadFormCheck()
+})
+
+uploadBtn.addEventListener('input', () => {
+    uploadFormCheck()
+})
+
+function uploadFormCheck() {
+    if (title.value && uploadBtn.value) {
+        addPhoto.style.background = '#1D6154'
+    } else {
+        addPhoto.style.background = '#A7A7A7'
+    }
+}
 
 // fonction servant à afficher la modale
 function displayModal() {
@@ -104,7 +162,7 @@ function displayModalImages() {
         modalPhotos.classList.add('modal__images-size')
         modalCard.appendChild(deleteBtn)
         deleteBtn.classList.add('delete__image-btn')
-        deleteBtn.innerHTML = `<img src="/FrontEnd/assets/icons/bin.svg" alt="delete bin">`
+        deleteBtn.innerHTML = `<img src="./assets/icons/bin.svg" alt="delete bin">`
         edit.innerHTML = 'éditer'
         modalCard.appendChild(edit)
         // suppréssion des travaux lors du click sur les boutons
@@ -124,4 +182,5 @@ function closeModal() {
 function resetModal() {
     modalContent.style.display = 'flex'
     addModal.style.display = 'none'
+    title.value = ''
 }

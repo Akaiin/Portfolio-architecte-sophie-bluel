@@ -15,6 +15,13 @@
         <link rel="stylesheet" href="./assets/style.css" />
     </head>
     <body>
+        <div class="header__admin">
+            <span class="header__admin__edit">
+                <img src="./assets/icons/edit_white.svg" alt="edit" class="admin__edit__icon" />
+                <p class="header__admin__text">Mode édition</p>
+            </span>
+            <button class="header__admin-btn">publier les changements</button>
+        </div>
         <header>
             <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
             <nav>
@@ -29,7 +36,11 @@
         <main>
             <section id="introduction">
                 <figure>
-                    <img src="./assets/images/sophie-bluel.png" alt="" />
+                    <img src="./assets/images/sophie-bluel.png" alt="sophie-bluel" class="intro__image" />
+                    <span class="intro__edit__hidden">
+                        <img src="./assets/icons/edit.svg" alt="edit" class="edit__icon" />
+                        <p class="intro__edit__text">modifier</p>
+                    </span>
                 </figure>
                 <article>
                     <h2>Designer d'espace</h2>
@@ -50,7 +61,13 @@
                 </article>
             </section>
             <section id="portfolio">
-                <h2>Mes Projets</h2>
+                <div class="portfolio__title">
+                    <h2>Mes Projets</h2>
+                    <span id="edit__hidden" class="edit__hidden">
+                        <img src="./assets/icons/edit.svg" alt="edit" class="edit__icon" />
+                        <p>modifier</p>
+                    </span>
+                </div>
                 <div class="filters">
                     <button class="category-btn">Tous</button>
                 </div>
@@ -69,18 +86,14 @@
                     <div class="modal__content__hidden">
                         <div class="modal__header">
                             <button class="back-btn btn">
-                                <img src="/FrontEnd/assets/icons/arrow_left.svg" alt="close" />
+                                <img src="./assets/icons/arrow_left.svg" alt="close" />
                             </button>
                             <button class="close-btn btn"></button>
                         </div>
                         <h2 class="modal__title">Ajout photo</h2>
                         <form action="#" class="upload__container">
                             <div class="upload__content">
-                                <img
-                                    src="/FrontEnd/assets/icons/upload.svg"
-                                    alt="upload"
-                                    class="upload__icon"
-                                />
+                                <img src="./assets/icons/upload.svg" alt="upload" class="upload__icon" />
                                 <label for="upload-btn" class="upload__label">+ Ajouter photo</label>
                                 <input
                                     type="file"
@@ -89,6 +102,8 @@
                                     class="upload-btn"
                                 />
                                 <p class="upload__subtext">jpg, png : 4mo max</p>
+                                <p class="upload__noimage"></p>
+                                <img src="" alt="" class="uploaded__photo" />
                             </div>
                             <label for="title" class="modal__label">Titre</label>
                             <input type="text" name="title" id="title" required />
@@ -98,6 +113,7 @@
                                 <option value="2">Appartements</option>
                                 <option value="3">Hôtels & restaurants</option>
                             </select>
+                            <div class="modal__border"></div>
                             <button class="modal__add-btn modal__hidden-btn">Valider</button>
                         </form>
                     </div>

@@ -1,3 +1,6 @@
+const adminBar = document.querySelector('.header__admin')
+const editImages = document.querySelector('.edit__hidden')
+const introEdit = document.querySelector('.intro__edit__hidden')
 const filters = document.querySelector('.filters')
 const filterAll = document.querySelector('.category-btn')
 const user = JSON.parse(sessionStorage.getItem('user'))
@@ -8,12 +11,14 @@ createCategories()
 
 // si l'utilisateur est connecté, création de l'option log out
 if (sessionStorage.user) {
-    loginLink.innerHTML = 'logout'
-    loginLink.style.fontWeight = 700
+    adminBar.style.display = 'flex'
+    introEdit.style.display = 'flex'
+    editImages.style.display = 'flex'
+    loginLink.textContent = 'logout'
     loginLink.addEventListener('click', (event) => {
         event.preventDefault()
         sessionStorage.removeItem('user')
-        location.href = 'http://127.0.0.1:5500/FrontEnd/index.html'
+        location.href = 'index.html'
     })
 }
 
@@ -26,16 +31,27 @@ async function createCategories() {
         categoryBtn.classList.add('category-btn')
         categoryBtn.textContent = category.name
         categoryBtn.addEventListener('click', (event) => {
+            removeGreenBackground()
+            categoryBtn.classList.add('category__background-green')
             const imagesFiltered = gallery.filter((image) => image.category.name === category.name)
             displayImages(imagesFiltered)
         })
     })
     filterAll.addEventListener('click', (event) => {
+        removeGreenBackground()
+        filterAll.classList.add('category__background-green')
         displayImages(gallery)
     })
 }
 
-// fonction servant à récupérer les images et de les stocker dans une variable
+function removeGreenBackground() {
+    const categoriesButtons = document.querySelectorAll('.category-btn')
+    categoriesButtons.forEach((button) => {
+        button.classList.remove('category__background-green')
+    })
+}
+
+// fonction servant à récupérer les images et de les stocker dans un tableau
 async function fetchAllImages() {
     const images = await getAllImages()
     displayImages(images)
@@ -53,12 +69,12 @@ function displayImages(images) {
 
         figureImage.src = image.imageUrl
         figureImage.alt = image.title
-        figureCaption.innerHTML = image.title
+        figureCaption.textContent = image.title
         imagesContainer.appendChild(figure)
         figure.appendChild(figureImage)
         figure.appendChild(figureCaption)
         if (sessionStorage.user) {
-            figureImage.addEventListener('click', (event) => {
+            editImages.addEventListener('click', (event) => {
                 event.preventDefault()
                 displayModal()
             })
@@ -68,5 +84,5 @@ function displayImages(images) {
 
 // redirection vers la page de connexion lors du click sur login
 loginLink.addEventListener('click', (event) => {
-    location.href = 'http://127.0.0.1:5500/FrontEnd/login.html'
+    location.href = 'login.html'
 })

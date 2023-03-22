@@ -136,7 +136,7 @@ table {
 
 /** end reset css**/
 body {
-	max-width: 1140px;
+	max-width: 1440px;
 	margin: auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
@@ -207,7 +207,10 @@ li:hover {
 
 #introduction img {
 	display: block;
-	margin: auto;
+	margin-left: 50px;
+}
+
+.intro__image {
 	width: 80%;
 }
 
@@ -226,6 +229,72 @@ li:hover {
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
+}
+
+
+.header__admin {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	background-color:  #000000;
+	height: 60px;
+	gap: 21px;
+}
+
+.header__admin__edit {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.admin__edit__icon {
+	background-color: black;
+}
+
+.header__admin__text {
+	color: #FFFFFF;
+}
+
+.header__admin-btn {
+	font-family: 'Work Sans';
+	border: none;
+	border-radius: 60px;
+	width: 216px;
+	height: 38px;
+	background: #FFFFFF;
+	cursor: pointer;
+}
+
+
+.portfolio__title {
+	display: flex;
+	justify-content: center;
+	gap: 31px;
+}
+
+.intro__edit__hidden {
+	display: none;
+	align-items: center;
+	margin-top: 15px;
+	padding-bottom: 28px;
+	gap: 11px;
+	cursor: pointer;
+}
+
+.intro__edit__text {
+	margin-top: 5px;
+}
+
+.edit__hidden {
+	display: none;
+	align-items: center;
+	padding-bottom: 28px;
+	gap: 11px;
+	cursor: pointer;
+}
+
+.edit__icon {
+	width: 20px;
 }
 
 .gallery {
@@ -255,6 +324,16 @@ li:hover {
 	color: #1D6154;
 	background-color: white;
 	cursor: pointer;
+}
+
+.category__background-green {
+	color: white;
+    background-color: #1D6154;
+}
+
+.category-btn:hover {
+	color: white;
+	background-color:#1D6154;
 }
 
 .gallery img {
@@ -461,7 +540,7 @@ footer nav ul {
 }
 
 .close-btn {
-	background: url('/FrontEnd/assets/icons/cross.svg') no-repeat;
+	background: url('../assets/icons/cross.svg') no-repeat;
 }
 
 .upload__container {
@@ -513,7 +592,14 @@ footer nav ul {
 	margin-top: 7px;
 }
 
+.upload__noimage {
+	display: none;
+	font-size: 10px;
+	margin-top: 5px;
+}
+
 .uploaded__photo{
+	display: none;
 	width: 129px;
 	height: 169px;
 	object-fit: cover;
