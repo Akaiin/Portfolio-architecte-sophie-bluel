@@ -80,10 +80,12 @@ addPhoto.addEventListener('click', (event) => {
         })
             .then((response) => {
                 if (response.status === 201) {
+                    alert(`l'ajout d'image à été éffectué avec succès`)
                     return response.json()
                 }
             })
             .then((data) => {
+                console.log(data)
                 if (data.categoryId === '1') {
                     data.category = {
                         id: 1,
@@ -106,6 +108,7 @@ addPhoto.addEventListener('click', (event) => {
                 console.log(gallery)
                 console.log(data)
             })
+            .catch((error) => alert(`l'ajout d'image à échoué`))
         addModal.style.display = 'flex'
         uploadBtn.value = null // reset l'input file a l'ouverture de la modale upload
         uploadedPhoto.style.display = 'none'
@@ -153,6 +156,7 @@ function displayModalImages() {
         const modalPhotos = document.createElement('img')
         const deleteBtn = document.createElement('button')
         const edit = document.createElement('p')
+        const moveBtn = document.createElement('button')
 
         modalCard.classList.add('modal__images__card')
         modalPhotos.src = image.imageUrl
@@ -164,6 +168,9 @@ function displayModalImages() {
         deleteBtn.classList.add('delete__image-btn')
         deleteBtn.innerHTML = `<img src="./assets/icons/bin.svg" alt="delete bin">`
         edit.innerHTML = 'éditer'
+        moveBtn.classList.add('modal__move-btn')
+        moveBtn.innerHTML = `<img src="./assets/icons/arrows.svg" alt="move button">`
+        modalCard.appendChild(moveBtn)
         modalCard.appendChild(edit)
         // suppréssion des travaux lors du click sur les boutons
         deleteBtn.addEventListener('click', (event) => {
