@@ -1,3 +1,15 @@
+async function login(user) {
+    const response = await fetch('http://localhost:5678/api/users/login', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+    })
+    return response
+}
+
 // récupération des catégories
 async function getCategories() {
     const response = await fetch('http://localhost:5678/api/categories')
@@ -29,4 +41,16 @@ async function deleteImage(imageId) {
             }
         })
         .catch((error) => alert('la suppression à échoué'))
+}
+
+async function uploadImage(formData, token) {
+    const response = await fetch('http://localhost:5678/api/works', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    })
+    return response
 }

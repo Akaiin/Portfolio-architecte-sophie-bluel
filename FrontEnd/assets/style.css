@@ -136,10 +136,14 @@ table {
 
 /** end reset css**/
 body {
-	max-width: 1440px;
 	margin: auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
+}
+
+.wrapper {
+	max-width: 1140px;
+	margin: 0 auto;
 }
 
 header {
@@ -214,7 +218,7 @@ li:hover {
 	width: 80%;
 }
 
-#introduction article {
+#introduction div {
 	flex: 1
 }
 
@@ -277,6 +281,8 @@ li:hover {
 	align-items: center;
 	margin-top: 15px;
 	padding-bottom: 28px;
+	border: none;
+	background: #FFFFFF;
 	gap: 11px;
 	cursor: pointer;
 }
@@ -288,6 +294,8 @@ li:hover {
 .edit__hidden {
 	display: none;
 	align-items: center;
+	border: none;
+	background: #FFFFFF;
 	padding-bottom: 28px;
 	gap: 11px;
 	cursor: pointer;
@@ -446,6 +454,7 @@ footer nav ul {
 .modal__images__container {
 	display: flex;
 	flex-wrap: wrap;
+	overflow: auto;
 	width: 450px;
 	height: 400px;
 	margin: 22px 0px 0px 100px;
@@ -453,6 +462,7 @@ footer nav ul {
 }
 
 .modal__images__card {
+	position: relative;
 	width: 71px;
 	height: 104px;
 }
@@ -468,7 +478,11 @@ footer nav ul {
 
 .delete__image-btn {
 	position: absolute;
-	transform: translate(-130%, 25%);
+	top: 6px;
+	right: 7px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 19px;
 	height: 19px;
 	background: #000000;
@@ -537,7 +551,8 @@ footer nav ul {
 	padding-bottom: 200px;
 }
 
-#invalid-email, #invalid-password {
+#invalid__email, #invalid__password {
+	margin-top: 7px;
 	color: red;
 }
 
@@ -631,6 +646,12 @@ footer nav ul {
 	color: #444444;
 	border: none;
 	outline: none;
+}
+
+.title__empty {
+	display: none;
+	color: red;
+	margin-bottom: 20px;
 }
 
 .select__category {

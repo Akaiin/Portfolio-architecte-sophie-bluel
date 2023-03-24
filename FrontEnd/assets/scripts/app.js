@@ -1,13 +1,18 @@
 const adminBar = document.querySelector('.header__admin')
 const editImages = document.querySelector('.edit__hidden')
 const introEdit = document.querySelector('.intro__edit__hidden')
-const filters = document.querySelector('.filters')
+const filterContainer = document.querySelector('.filters')
 const filterAll = document.querySelector('.category-btn')
 const user = JSON.parse(sessionStorage.getItem('user'))
 
 let gallery = []
 fetchAllImages()
 createCategories()
+
+// redirection vers la page de connexion lors du click sur login
+loginLink.addEventListener('click', (event) => {
+    location.href = 'login.html'
+})
 
 // si l'utilisateur est connecté, création de l'option log out
 if (sessionStorage.user) {
@@ -20,6 +25,10 @@ if (sessionStorage.user) {
         sessionStorage.removeItem('user')
         location.href = 'index.html'
     })
+    editImages.addEventListener('click', (event) => {
+        event.preventDefault()
+        displayModal()
+    })
 }
 
 // fonction servant à récupérer les catégories et a créer les boutons utilisé pour filtrer les images
@@ -27,7 +36,7 @@ async function createCategories() {
     const categories = await getCategories()
     categories.forEach((category) => {
         const categoryBtn = document.createElement('button')
-        filters.appendChild(categoryBtn)
+        filterContainer.appendChild(categoryBtn)
         categoryBtn.classList.add('category-btn')
         categoryBtn.textContent = category.name
         categoryBtn.addEventListener('click', (event) => {
@@ -61,7 +70,7 @@ async function fetchAllImages() {
 // fonction servant à afficher les images sur la page principal
 function displayImages(images) {
     const imagesContainer = document.querySelector('.gallery')
-    imagesContainer.innerHTML = ''
+    imagesContainer.textContent = ''
     images.forEach((image) => {
         const figure = document.createElement('figure')
         const figureCaption = document.createElement('figcaption')
@@ -73,16 +82,5 @@ function displayImages(images) {
         imagesContainer.appendChild(figure)
         figure.appendChild(figureImage)
         figure.appendChild(figureCaption)
-        if (sessionStorage.user) {
-            editImages.addEventListener('click', (event) => {
-                event.preventDefault()
-                displayModal()
-            })
-        }
     })
 }
-
-// redirection vers la page de connexion lors du click sur login
-loginLink.addEventListener('click', (event) => {
-    location.href = 'login.html'
-})

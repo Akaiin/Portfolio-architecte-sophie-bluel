@@ -8,10 +8,12 @@ const uploadBtn = document.querySelector('#upload-btn')
 const addPhoto = document.querySelector('.modal__hidden-btn')
 const addModal = document.querySelector('.modal__content__hidden')
 const title = document.querySelector('#title')
+const noTitle = document.querySelector('.title__empty')
 const category = document.querySelector('#category')
 const uploadContent = document.querySelector('.upload__content')
 const uploadIcon = document.querySelector('.upload__icon')
 const uploadLabel = document.querySelector('.upload__label')
+const noImage = document.querySelector('.upload__noimage')
 const uploadedPhoto = document.querySelector('.uploaded__photo')
 const uploadText = document.querySelector('.upload__subtext')
 
@@ -52,17 +54,20 @@ uploadBtn.addEventListener('change', (event) => {
         uploadIcon.style.display = 'none'
         uploadText.style.display = 'none'
         uploadLabel.style.display = 'none'
+        noImage.style.display = 'none'
         uploadedPhoto.style.display = 'block'
         uploadedPhoto.src = `${URL.createObjectURL(image)}`
     } else {
         uploadText.style.color = 'red'
-        uploadText.innerHTML = `Fichier trop volumineux, veuillez respecter la taille qui est de 4mo maximum et son format jpg ou png`
+        uploadText.textContent = `Fichier trop volumineux, veuillez respecter la taille qui est de 4mo maximum et son format jpg ou png`
     }
 })
 
 // création de mon objet formData contenant les propriété de mes images uploadé
 addPhoto.addEventListener('click', (event) => {
     event.preventDefault()
+    noImage.textContent = ''
+    noTitle.style.display = 'none'
     if (uploadBtn.files[0]) {
         let formData = new FormData()
         formData.append('image', uploadBtn.files[0])
@@ -70,53 +75,50 @@ addPhoto.addEventListener('click', (event) => {
         formData.append('category', category.value)
 
         // envoi des informations de mes images vers le serveur
-        fetch('http://localhost:5678/api/works', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${user.token}`,
-            },
-        })
-            .then((response) => {
-                if (response.status === 201) {
-                    alert(`l'ajout d'image à été éffectué avec succès`)
-                    return response.json()
-                }
-            })
-            .then((data) => {
-                console.log(data)
-                if (data.categoryId === '1') {
-                    data.category = {
-                        id: 1,
-                        name: 'Objets',
+        try {
+            uploadImage(formData, user.token)
+                .then((response) => {
+                    if (response.status === 201) {
+                        alert(`l'ajout d'image à été éffectué avec succès`)
+                        return response.json()
                     }
-                } else if (data.categoryId === '2') {
-                    data.category = {
-                        id: 2,
-                        name: 'Appartements',
+                })
+                .then((data) => {
+                    if (data.categoryId === '1') {
+                        data.category = {
+                            id: 1,
+                            name: 'Objets',
+                        }
+                    } else if (data.categoryId === '2') {
+                        data.category = {
+                            id: 2,
+                            name: 'Appartements',
+                        }
+                    } else if (data.categoryId === '3') {
+                        data.category = {
+                            id: 3,
+                            name: 'Hotels & restaurants',
+                        }
                     }
-                } else if (data.categoryId === '3') {
-                    data.category = {
-                        id: 3,
-                        name: 'Hotels & restaurants',
-                    }
-                }
-                gallery.push(data)
-                displayImages(gallery)
-                displayModalImages()
-                console.log(gallery)
-                console.log(data)
-            })
-            .catch((error) => alert(`l'ajout d'image à échoué`))
+                    gallery.push(data)
+                    displayImages(gallery)
+                    displayModalImages()
+                })
+                .catch((error) => alert(`l'ajout d'image à échoué`))
+        } catch (error) {
+            console.error(error)
+        }
         addModal.style.display = 'flex'
         uploadBtn.value = null // reset l'input file a l'ouverture de la modale upload
         uploadedPhoto.style.display = 'none'
         uploadIcon.style.display = 'block'
         uploadText.style.display = 'block'
         uploadLabel.style.display = 'flex'
+        noTitle.style.display = 'none'
+    }
+    if (!title.value) {
+        noTitle.style.display = 'block'
     } else {
-        const noImage = document.querySelector('.upload__noimage')
         noImage.style.display = 'block'
         noImage.style.color = 'red'
         noImage.textContent = `Veuillez ajouter une image avant de valider`
@@ -150,7 +152,7 @@ function displayModal() {
 // fonction servant à afficher les images dans la modale
 function displayModalImages() {
     const modalImages = document.querySelector('.modal__images__container')
-    modalImages.innerHTML = ''
+    modalImages.textContent = ''
     gallery.forEach((image) => {
         const modalCard = document.createElement('div')
         const modalPhotos = document.createElement('img')
@@ -167,7 +169,7 @@ function displayModalImages() {
         modalCard.appendChild(deleteBtn)
         deleteBtn.classList.add('delete__image-btn')
         deleteBtn.innerHTML = `<img src="./assets/icons/bin.svg" alt="delete bin">`
-        edit.innerHTML = 'éditer'
+        edit.textContent = 'éditer'
         moveBtn.classList.add('modal__move-btn')
         moveBtn.innerHTML = `<img src="./assets/icons/arrows.svg" alt="move button">`
         modalCard.appendChild(moveBtn)
