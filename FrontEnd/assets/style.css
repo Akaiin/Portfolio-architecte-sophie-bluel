@@ -467,10 +467,6 @@ footer nav ul {
 	height: 104px;
 }
 
-.modal__images__card:hover .modal__move-btn {
-	opacity: 1;
-}
-
 .modal__images-size {
 	width: 100%;
 	height: 100%;
@@ -494,7 +490,7 @@ footer nav ul {
 .modal__move-btn {
 	opacity: 0;
 	position: absolute;
-	transform: translate(-250%, 25%);
+	transform: translate(-250%, 30%);
 	width: 19px;
 	height: 19px;
 	padding-top: 2px;
@@ -502,6 +498,10 @@ footer nav ul {
 	border-radius: 2px;
 	border: none;
 	cursor: pointer;
+}
+
+.modal__images__card:hover .modal__move-btn {
+	opacity: 1;
 }
 
 .modal__border {
