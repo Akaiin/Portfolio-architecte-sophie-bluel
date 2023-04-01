@@ -68,7 +68,7 @@ addPhoto.addEventListener('click', (event) => {
     event.preventDefault()
     noImage.textContent = ''
     noTitle.style.display = 'none'
-    if (uploadBtn.files[0]) {
+    if (uploadBtn.files[0] && title.value) {
         let formData = new FormData()
         formData.append('image', uploadBtn.files[0])
         formData.append('title', title.value)
@@ -100,6 +100,7 @@ addPhoto.addEventListener('click', (event) => {
                             name: 'Hotels & restaurants',
                         }
                     }
+                    noImage.style.display = 'none'
                     gallery.push(data)
                     displayImages(gallery)
                     displayModalImages()
@@ -119,9 +120,14 @@ addPhoto.addEventListener('click', (event) => {
     if (!title.value) {
         noTitle.style.display = 'block'
     } else {
+        noTitle.style.display = 'none'
+    }
+    if (!uploadBtn.value) {
         noImage.style.display = 'block'
         noImage.style.color = 'red'
         noImage.textContent = `Veuillez ajouter une image avant de valider`
+    } else {
+        noImage.style.display = 'none'
     }
 })
 

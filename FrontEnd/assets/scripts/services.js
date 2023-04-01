@@ -1,3 +1,4 @@
+// récupération des identifiants pour la page login
 async function login(user) {
     const response = await fetch('http://localhost:5678/api/users/login', {
         method: 'POST',
@@ -43,6 +44,7 @@ async function deleteImage(imageId) {
         .catch((error) => alert('la suppression à échoué'))
 }
 
+// récupération de la fonction d'upload d'image
 async function uploadImage(formData, token) {
     const response = await fetch('http://localhost:5678/api/works', {
         method: 'POST',

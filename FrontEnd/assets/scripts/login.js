@@ -1,3 +1,6 @@
+// sophie.bluel@test.tld
+// S0phie
+
 const loginForm = document.querySelector('#login-form')
 const loginEmail = document.querySelector('#email')
 const invalidEmail = document.querySelector('#invalid__email')

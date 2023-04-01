@@ -60,13 +60,6 @@ function removeGreenBackground() {
     })
 }
 
-// fonction servant à récupérer les images et de les stocker dans un tableau
-async function fetchAllImages() {
-    const images = await getAllImages()
-    displayImages(images)
-    gallery = [...images]
-}
-
 // fonction servant à afficher les images sur la page principal
 function displayImages(images) {
     const imagesContainer = document.querySelector('.gallery')
@@ -83,4 +76,11 @@ function displayImages(images) {
         figure.appendChild(figureImage)
         figure.appendChild(figureCaption)
     })
+}
+
+// fonction servant à récupérer les images et de les stocker dans un tableau
+async function fetchAllImages() {
+    const images = await getAllImages()
+    displayImages(images)
+    gallery = [...images]
 }
